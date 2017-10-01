@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Busca Filmes</string>
+    <string name="entrada">Nome do Filme</string>
 </resources>
