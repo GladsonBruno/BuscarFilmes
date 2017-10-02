@@ -24,12 +24,10 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         //Atribui o valor da intent a uma variavel
         String nomeFilmePesquisa = intent.getStringExtra(MainActivity.FILME);
         //Cria um elemento para mostra o resultado
-        TextView textView = new TextView(this);
+        final TextView textView = new TextView(this);
         textView.setTextSize(40);
         textView.setText(nomeFilmePesquisa);
-        //Adiciona o elemento a um layout
-        ViewGroup layout = (ViewGroup) findViewById(R.id.mostrarResultado);
-        layout.addView(textView);
+
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -38,11 +36,15 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
 
                 try{
                     URL OMDb = new URL(url);
+                    textView.setText("ok");
                 }catch(MalformedURLException ex){
-
+                    textView.setText(ex.getMessage());
                 }
 
             }
         });
+        //Adiciona o elemento a um layout
+        ViewGroup layout = (ViewGroup) findViewById(R.id.mostrarResultado);
+        layout.addView(textView);
     }
 }
