@@ -13,6 +13,8 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import static android.R.attr.start;
+
 public class resultadoPesquisaActivity extends AppCompatActivity {
 
     @Override
@@ -23,7 +25,7 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         PesquisarFilme();
     }
 
-    public void PesquisarFilme(){
+    public void PesquisarFilme() {
         //Captura o valor da intent
         Intent intent = getIntent();
         //Atribui o valor da intent a uma variavel
@@ -39,27 +41,18 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
             public void run() {
                 String url = "http://www.omdbapi.com/?t=" + nomeFilmePesquisa;
                 //Tentando criar a URL
-                try{
+                try {
                     URL OMDb = new URL(url);
                     //Tentando abrir conexão
-                    try{
-                        HttpsURLConnection minhaConexao = (HttpsURLConnection) OMDb.openConnection();
+                    try {
+                        javax.net.ssl.HttpsURLConnection minhaConexao = (javax.net.ssl.HttpsURLConnection) OMDb.openConnection();
                         //Identificando a aplicaçao na requisição
-                        minhaConexao.setRequestProperty("User-Agent", "BuscaFilmes");
 
-                        if(minhaConexao.getResponseCode() == 200){
-
-                            textView.setText("ok");
-                        }else{
-                            textView.setText(minhaConexao.getResponseCode());
-                        }
-
-
-                    }catch (IOException ex){
+                    } catch (IOException ex) {
                         //Tratamento de excessão
                         textView.setText(ex.getMessage().toString());
                     }
-                }catch(MalformedURLException ex){
+                } catch (MalformedURLException ex) {
                     //Tratamento de excessão por erro de url
                     textView.setText(ex.getMessage().toString());
                 }
