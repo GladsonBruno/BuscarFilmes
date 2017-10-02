@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class resultadoPesquisaActivity extends AppCompatActivity {
 
@@ -35,11 +38,29 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String url = "http://www.omdbapi.com/?t=" + nomeFilmePesquisa;
-
+                //Tentando criar a URL
                 try{
                     URL OMDb = new URL(url);
-                    textView.setText("ok");
+                    //Tentando abrir conexão
+                    try{
+                        HttpsURLConnection minhaConexao = (HttpsURLConnection) OMDb.openConnection();
+                        //Identificando a aplicaçao na requisição
+                        minhaConexao.setRequestProperty("User-Agent", "BuscaFilmes");
+
+                        if(minhaConexao.getResponseCode() == 200){
+
+                            textView.setText("ok");
+                        }else{
+                            textView.setText(minhaConexao.getResponseCode());
+                        }
+
+
+                    }catch (IOException ex){
+                        //Tratamento de excessão
+                        textView.setText(ex.getMessage().toString());
+                    }
                 }catch(MalformedURLException ex){
+                    //Tratamento de excessão por erro de url
                     textView.setText(ex.getMessage().toString());
                 }
 
