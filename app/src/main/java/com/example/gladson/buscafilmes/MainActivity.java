@@ -11,8 +11,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     //Guarda o nome do filme
@@ -28,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue request = Volley.newRequestQueue(this);
         String url = "http://www.omdbapi.com/?i=tt3896198&apikey=ea23cea2";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>(){
                     @Override
-                    public void onResponse(String response){
-                        teste.setText("Resultado:" + response.equals("Title"));
+                    public void onResponse(JSONObject response){
+                            teste.setText("Resultado:" + response);
                     }
         }, new Response.ErrorListener(){
             @Override
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 teste.setText(error.getMessage());
             }
         });
-        request.add(stringRequest);
+        request.add(jsonObjectRequest);
     }
 
     /*
