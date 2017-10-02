@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class resultadoPesquisaActivity extends AppCompatActivity {
@@ -15,10 +16,9 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_pesquisa);
+    }
 
-
-
-
+    public void PesquisarFilme(final String titulo){
         //Captura o valor da intent
         Intent intent = getIntent();
         //Atribui o valor da intent a uma variavel
@@ -27,18 +27,21 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         TextView textView = new TextView(this);
         textView.setTextSize(40);
         textView.setText(nomeFilmePesquisa);
-
         //Adiciona o elemento a um layout
         ViewGroup layout = (ViewGroup) findViewById(R.id.mostrarResultado);
         layout.addView(textView);
-    }
 
-    public void PesquisarFilme(final String titulo){
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                String url = "http://www.omdbapi.com/?t=" + titulo.toString();
-                
+                String url = "http://www.omdbapi.com/?t=" + titulo;
+
+                try{
+                    URL OMDb = new URL(url);
+                }catch(MalformedURLException ex){
+
+                }
+
             }
         });
     }
