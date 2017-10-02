@@ -22,7 +22,7 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_pesquisa);
 
-        PesquisarFilme();
+        //PesquisarFilme();
     }
 
     public void PesquisarFilme() {

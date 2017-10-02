@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /*
     public void pesquisarFilme(View view){
+
         //Cria um vinculo entre a primeira e a segunda pagina
         Intent intent = new Intent(this,resultadoPesquisaActivity.class);
         //Pega a editText da primeira tela
@@ -27,4 +29,5 @@ public class MainActivity extends AppCompatActivity {
         //Instancia a proxima tela
         startActivity(intent);
     }
+     */
 }
