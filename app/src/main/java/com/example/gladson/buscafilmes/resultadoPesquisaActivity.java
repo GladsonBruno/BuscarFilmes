@@ -16,13 +16,15 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_pesquisa);
+
+        PesquisarFilme();
     }
 
-    public void PesquisarFilme(final String titulo){
+    public void PesquisarFilme(){
         //Captura o valor da intent
         Intent intent = getIntent();
         //Atribui o valor da intent a uma variavel
-        String nomeFilmePesquisa = intent.getStringExtra(MainActivity.FILME);
+        final String nomeFilmePesquisa = intent.getStringExtra(MainActivity.FILME);
         //Cria um elemento para mostra o resultado
         final TextView textView = new TextView(this);
         textView.setTextSize(40);
@@ -32,13 +34,13 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                String url = "http://www.omdbapi.com/?t=" + titulo;
+                String url = "http://www.omdbapi.com/?t=" + nomeFilmePesquisa;
 
                 try{
                     URL OMDb = new URL(url);
                     textView.setText("ok");
                 }catch(MalformedURLException ex){
-                    textView.setText(ex.getMessage());
+                    textView.setText(ex.getMessage().toString());
                 }
 
             }
