@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response){
-                            teste.setText("Resultado:" + response);
+                        try{
+                            teste.setText("Resultado:" + response.getString("Title"));
+                        }catch (JSONException EX){
+                            teste.setText(EX.getMessage());
+                        }
+
                     }
         }, new Response.ErrorListener(){
             @Override
