@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
-                        teste.setText("Resultado:" + response.toString());
+                        teste.setText("Resultado:" + response.equals("Title"));
                     }
         }, new Response.ErrorListener(){
             @Override
