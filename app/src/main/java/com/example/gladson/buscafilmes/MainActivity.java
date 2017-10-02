@@ -26,45 +26,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView teste = (TextView) findViewById(R.id.testeVolley);
+    }
+
+
+    public void pesquisarFilme(View view){
+        EditText editText = (EditText) findViewById(R.id.entrada);
+        requisitarURL(editText.getText().toString());
+    }
+    public void requisitarURL(String filme){
+        //Cria um vinculo entre a primeira e a segunda pagina
+        Intent intent = new Intent(this,resultadoPesquisaActivity.class);
+        //Pega a editText da primeira tela
+
+        final TextView guardarResposta = (TextView) findViewById(R.id.testeVolley);
 
         //Inicializando a requisição
         RequestQueue request = Volley.newRequestQueue(this);
-        String url = "http://www.omdbapi.com/?i=tt3896198&apikey=ea23cea2";
+        String url = "http://www.omdbapi.com/?apikey=ea23cea2&t=" + filme;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>(){
                     @Override
                     public void onResponse(JSONObject response){
                         try{
-                            teste.setText("Resultado:" + response.getString("Title"));
+                            guardarResposta.setText(response.getString("Title"));
                         }catch (JSONException EX){
-                            teste.setText(EX.getMessage());
+                            guardarResposta.setText(EX.getMessage());
                         }
 
                     }
-        }, new Response.ErrorListener(){
+                }, new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
-                teste.setText(error.getMessage());
+                guardarResposta.setText(error.getMessage());
             }
         });
         request.add(jsonObjectRequest);
-    }
-
-    /*
-    public void pesquisarFilme(View view){
-
-        //Cria um vinculo entre a primeira e a segunda pagina
-        Intent intent = new Intent(this,resultadoPesquisaActivity.class);
-        //Pega a editText da primeira tela
-        EditText editText = (EditText) findViewById(R.id.entrada);
-        //atribui a variavel filme o nomme digitado no EditText component
-        String filme = editText.getText().toString();
-        //Adiciona o valor e editText ao intent
-        intent.putExtra(FILME, filme);
+        TextView resposta = (TextView) findViewById(R.id.testeVolley);
+        intent.putExtra(FILME, resposta.getText().toString());
         //Instancia a proxima tela
         startActivity(intent);
+
     }
-     */
+
 }
