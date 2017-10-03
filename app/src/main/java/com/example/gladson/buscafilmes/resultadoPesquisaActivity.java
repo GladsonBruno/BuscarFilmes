@@ -31,7 +31,7 @@ public class resultadoPesquisaActivity extends AppCompatActivity {
         String resultadoFormatado = nomeFilmePesquisa.replace(" ", "+");
         //Cria um elemento para mostra o resultado
         final TextView textView = new TextView(this);
-        textView.setTextSize(40);
+        textView.setTextSize(12);
 
         //Inicializando a requisição
         RequestQueue request = Volley.newRequestQueue(this);
